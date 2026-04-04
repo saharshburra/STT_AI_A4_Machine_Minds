@@ -1,0 +1,64 @@
+{
+  "best_method": "grid",
+  "best_params": {
+    "max_depth": 20,
+    "min_samples_split": 2,
+    "n_estimators": 200
+  },
+  "test_mae": 1514.5870304650896,
+  "feature_cols": [
+    "location",
+    "city",
+    "latitude",
+    "longitude",
+    "numBathrooms",
+    "numBalconies",
+    "isNegotiable",
+    "SecurityDeposit",
+    "Status",
+    "Size_ft\u00b2",
+    "Price_per_sqft",
+    "BHK",
+    "rooms_num",
+    "property_type",
+    "verification_days"
+  ],
+  "categorical_cols": [
+    "location",
+    "city",
+    "Status",
+    "property_type"
+  ],
+  "results": {
+    "grid": {
+      "best_params": {
+        "max_depth": 20,
+        "min_samples_split": 2,
+        "n_estimators": 200
+      },
+      "best_cv_mae": 2176.5635106484306,
+      "time_sec": 563.0006086826324,
+      "iterations": 100
+    },
+    "random": {
+      "best_params": {
+        "n_estimators": 199,
+        "min_samples_split": 3,
+        "max_depth": 30
+      },
+      "best_cv_mae": 2203.863231846956,
+      "time_sec": 233.74817752838135,
+      "iterations": 40
+    },
+    "bayesian": {
+      "best_params": {
+        "n_estimators": 199,
+        "max_depth": 26,
+        "min_samples_split": 2
+      },
+      "best_cv_mae": 2180.971136771126,
+      "time_sec": 299.3142237663269,
+      "iterations": 40
+    }
+  }
+}
