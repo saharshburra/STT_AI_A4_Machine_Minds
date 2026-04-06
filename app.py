@@ -1,6 +1,7 @@
 import streamlit as st
 import pickle
 import numpy as np
+import pandas as pd
 import warnings
 
 warnings.filterwarnings("ignore")
@@ -56,11 +57,12 @@ if st.button("Predict Rent"):
     status_enc = status_encoder.transform([status])[0]
     type_enc = type_encoder.transform([property_type])[0]
 
-    # Feature vector
-    features = np.array([[location_enc, city_enc, latitude, longitude,
-                          bathrooms, balconies, isNegotiable, security,
-                          status_enc, size, price_sqft, bhk, rooms,
-                          type_enc, verification_days]])
+    # Feature vector with proper column names to avoid sklearn warning
+    features = pd.DataFrame([[location_enc, city_enc, latitude, longitude,
+                              bathrooms, balconies, isNegotiable, security,
+                              status_enc, size, price_sqft, bhk, rooms,
+                              type_enc, verification_days]], 
+                            columns=model.feature_names_in_)
 
     # Predict
     prediction = model.predict(features)
