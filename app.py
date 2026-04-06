@@ -1,42 +1,41 @@
-# Build your Streamlit application here
-
 import streamlit as st
 import pickle
 import numpy as np
+import warnings
 
-# -------------------------------
-# Load Model + Encoders
-# -------------------------------
-data = pickle.load(open("models/best_rf_model.pkl", "rb"))
+warnings.filterwarnings("ignore")
 
-model = data["model"]
-location_encoder = data["location_encoder"]
-city_encoder = data["city_encoder"]
-status_encoder = data["status_encoder"]
-type_encoder = data["type_encoder"]
+# Load Model
+model = pickle.load(open("models/best_rf_model.pkl", "rb"))
 
-# -------------------------------
+# Load Encoders
+encoders = pickle.load(open("models/label_encoders.pkl", "rb"))
+
+location_encoder = encoders["location"]
+city_encoder = encoders["city"]
+status_encoder = encoders["Status"]
+type_encoder = encoders["property_type"]
+
 # UI
-# -------------------------------
 st.title("🏠 UrbanNest Rent Prediction")
 
 st.sidebar.header("About")
-st.sidebar.write("ML-based rent prediction system")
+st.sidebar.write("Predict house rent using Machine Learning")
 
-# ----------- Categorical Inputs -----------
+# Categorical Inputs
 location = st.selectbox("Location", location_encoder.classes_)
 city = st.selectbox("City", city_encoder.classes_)
 status = st.selectbox("Status", status_encoder.classes_)
 property_type = st.selectbox("Property Type", type_encoder.classes_)
 
-# ----------- Numerical Inputs -----------
+# Numerical Inputs
 latitude = st.number_input("Latitude", value=19.0)
 longitude = st.number_input("Longitude", value=72.0)
 
 bathrooms = st.number_input("Number of Bathrooms", min_value=1)
 balconies = st.number_input("Number of Balconies", min_value=0)
 
-isNegotiable = st.selectbox("Negotiable", [0, 1])
+isNegotiable = st.selectbox("Negotiable (0 = No, 1 = Yes)", [0, 1])
 
 security = st.number_input("Security Deposit", min_value=0)
 
@@ -48,9 +47,7 @@ rooms = st.number_input("Total Rooms", min_value=1)
 
 verification_days = st.number_input("Verification Days", min_value=0)
 
-# -------------------------------
 # Prediction
-# -------------------------------
 if st.button("Predict Rent"):
 
     # Encode categorical features
@@ -59,12 +56,14 @@ if st.button("Predict Rent"):
     status_enc = status_encoder.transform([status])[0]
     type_enc = type_encoder.transform([property_type])[0]
 
-    # Feature vector (EXACT ORDER — VERY IMPORTANT)
+    # Feature vector
     features = np.array([[location_enc, city_enc, latitude, longitude,
                           bathrooms, balconies, isNegotiable, security,
                           status_enc, size, price_sqft, bhk, rooms,
                           type_enc, verification_days]])
 
+    # Predict
     prediction = model.predict(features)
 
+    # Output
     st.success(f"💰 Estimated Rent: ₹{prediction[0]:,.2f}")
