@@ -15,3 +15,5 @@ __pycache__/
 .DS_Store
 Thumbs.db
 .vscode/
+# Ignore large model file
+models/best_rf_model.pkl
