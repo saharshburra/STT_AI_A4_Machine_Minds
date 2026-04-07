@@ -6,12 +6,16 @@ import warnings
 
 warnings.filterwarnings("ignore")
 
-# Load Model
-model = pickle.load(open("models/best_rf_model.pkl", "rb"))
+# Load Model and encoders
+@st.cache_resource
+def load_artifacts():
+    model = pickle.load(open("models/best_rf_model.pkl", "rb"))
+    encoders = pickle.load(open("models/label_encoders.pkl", "rb"))
+    return model, encoders
 
-# Load Encoders
-encoders = pickle.load(open("models/label_encoders.pkl", "rb"))
+model, encoders = load_artifacts()
 
+# Extract encoders
 location_encoder = encoders["location"]
 city_encoder = encoders["city"]
 status_encoder = encoders["Status"]
