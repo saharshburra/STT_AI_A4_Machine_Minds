@@ -1,11 +1,11 @@
 {
   "best_method": "grid",
   "best_params": {
-    "max_depth": 20,
+    "max_depth": 25,
     "min_samples_split": 2,
     "n_estimators": 200
   },
-  "test_mae": 1514.5870304650896,
+  "test_mae": 12417.007287299959,
   "feature_cols": [
     "location",
     "city",
@@ -17,7 +17,6 @@
     "SecurityDeposit",
     "Status",
     "Size_ft\u00b2",
-    "Price_per_sqft",
     "BHK",
     "rooms_num",
     "property_type",
@@ -32,33 +31,33 @@
   "results": {
     "grid": {
       "best_params": {
-        "max_depth": 20,
+        "max_depth": 25,
         "min_samples_split": 2,
         "n_estimators": 200
       },
-      "best_cv_mae": 2176.5635106484306,
-      "time_sec": 563.0006086826324,
-      "iterations": 100
+      "best_cv_mae": 13268.933395166712,
+      "time_sec": 411.9241781234741,
+      "iterations": 60
     },
     "random": {
       "best_params": {
-        "n_estimators": 199,
-        "min_samples_split": 3,
-        "max_depth": 30
+        "n_estimators": 142,
+        "min_samples_split": 2,
+        "max_depth": 24
       },
-      "best_cv_mae": 2203.863231846956,
-      "time_sec": 233.74817752838135,
-      "iterations": 40
+      "best_cv_mae": 13298.719930138317,
+      "time_sec": 362.10766315460205,
+      "iterations": 60
     },
     "bayesian": {
       "best_params": {
         "n_estimators": 199,
-        "max_depth": 26,
+        "max_depth": 22,
         "min_samples_split": 2
       },
-      "best_cv_mae": 2180.971136771126,
-      "time_sec": 299.3142237663269,
-      "iterations": 40
+      "best_cv_mae": 13285.521289306058,
+      "time_sec": 388.8682508468628,
+      "iterations": 60
     }
   }
 }
