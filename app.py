@@ -21,6 +21,13 @@ city_encoder = encoders["city"]
 status_encoder = encoders["Status"]
 type_encoder = encoders["property_type"]
 
+# Safe encoding function
+def safe_encode(encoder, value):
+    if value in encoder.classes_:
+        return encoder.transform([value])[0]
+    else:
+        return -1  # unseen category fallback
+
 # UI
 st.title("🏠 UrbanNest Rent Prediction")
 
@@ -52,14 +59,30 @@ rooms = st.number_input("Total Rooms", min_value=1)
 
 verification_days = st.number_input("Verification Days", min_value=0)
 
+# Input Validation
+if size < 200:
+    st.warning("⚠️ Size seems too small")
+
+if bathrooms > rooms:
+    st.error("❌ Bathrooms cannot exceed total rooms")
+
+if price_sqft <= 0:
+    st.error("❌ Price per sqft must be positive")
+    
+if latitude == 0 or longitude == 0:
+    st.warning("⚠️ Location coordinates look unusual")
+
 # Prediction
 if st.button("Predict Rent"):
+    # Stop if critical error
+    if bathrooms > rooms or price_sqft <= 0:
+        st.stop()
 
     # Encode categorical features
-    location_enc = location_encoder.transform([location])[0]
-    city_enc = city_encoder.transform([city])[0]
-    status_enc = status_encoder.transform([status])[0]
-    type_enc = type_encoder.transform([property_type])[0]
+    location_enc = safe_encode(location_encoder, location)
+    city_enc = safe_encode(city_encoder, city)
+    status_enc = safe_encode(status_encoder, status)
+    type_enc = safe_encode(type_encoder, property_type)
 
     # Feature vector with proper column names to avoid sklearn warning
     features = pd.DataFrame([[location_enc, city_enc, latitude, longitude,
