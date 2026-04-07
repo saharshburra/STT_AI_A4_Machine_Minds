@@ -23,10 +23,11 @@ type_encoder = encoders["property_type"]
 
 # Safe encoding function
 def safe_encode(encoder, value):
-    if value in encoder.classes_:
+    try:
         return encoder.transform([value])[0]
-    else:
-        return -1  # unseen category fallback
+    except:
+        # fallback to first known class
+        return encoder.transform([encoder.classes_[0]])[0]
 
 # UI
 st.title("🏠 UrbanNest Rent Prediction")
