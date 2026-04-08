@@ -1,4 +1,4 @@
-﻿# Assignment 4: PropTech Startup Strategy - Rent Prediction Pipeline
+# Assignment 4: PropTech Startup Strategy - Rent Prediction Pipeline
 
 **Course**: Software Tools and Techniques for AI
 
@@ -128,3 +128,24 @@ Assignment_4/
 ```
 
 Submit the link to your GitHub repository when the google form is shared. Good luck, Lead Engineer!
+
+---
+
+## ⚠️ Git LFS Notice
+
+This repository uses **Git Large File Storage (LFS)** to store large model files (`.pkl`).
+
+To clone this repo and get the actual model files, make sure you have Git LFS installed:
+
+```bash
+# Install Git LFS (one-time setup)
+git lfs install
+
+# Then clone as normal
+git clone <repo-url>
+```
+
+If you already cloned without LFS, run:
+```bash
+git lfs pull
+```
