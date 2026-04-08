@@ -53,7 +53,6 @@ isNegotiable = st.selectbox("Negotiable (0 = No, 1 = Yes)", [0, 1])
 security = st.number_input("Security Deposit", min_value=0)
 
 size = st.number_input("Size (sq ft)", min_value=100)
-price_sqft = st.number_input("Price per sqft", min_value=1)
 
 bhk = st.number_input("BHK", min_value=1)
 rooms = st.number_input("Total Rooms", min_value=1)
@@ -67,16 +66,13 @@ if size < 200:
 if bathrooms > rooms:
     st.error("❌ Bathrooms cannot exceed total rooms")
 
-if price_sqft <= 0:
-    st.error("❌ Price per sqft must be positive")
-    
 if latitude == 0 or longitude == 0:
     st.warning("⚠️ Location coordinates look unusual")
 
 # Prediction
 if st.button("Predict Rent"):
     # Stop if critical error
-    if bathrooms > rooms or price_sqft <= 0:
+    if bathrooms > rooms:
         st.stop()
 
     # Encode categorical features
@@ -88,7 +84,7 @@ if st.button("Predict Rent"):
     # Feature vector with proper column names to avoid sklearn warning
     features = pd.DataFrame([[location_enc, city_enc, latitude, longitude,
                               bathrooms, balconies, isNegotiable, security,
-                              status_enc, size, price_sqft, bhk, rooms,
+                              status_enc, size, bhk, rooms,
                               type_enc, verification_days]], 
                             columns=model.feature_names_in_)
 
