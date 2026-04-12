@@ -1,3 +1,5 @@
+**Huggingface Spaces Link :** https://huggingface.co/spaces/manoz-037/UrbanNest-Rent-Prediction
+
 # Assignment 4: PropTech Startup Strategy - Rent Prediction Pipeline
 
 **Course**: Software Tools and Techniques for AI
