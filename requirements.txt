@@ -6,3 +6,4 @@ optuna
 jupyter
 matplotlib
 trackio
+kaleido
