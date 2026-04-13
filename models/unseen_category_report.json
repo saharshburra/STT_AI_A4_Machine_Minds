@@ -1,0 +1,33 @@
+{
+  "location": {
+    "count": 47,
+    "examples": [
+      "Antarli",
+      "B1 Block Paschim Vihar",
+      "Bakhori",
+      "Baner Pashan Link Road",
+      "Borivali (West)",
+      "Breach Candy",
+      "CBD Belapur East",
+      "Chimbali",
+      "Cummins College Road",
+      "Dahisar East"
+    ],
+    "handling": "unseen_or_missing_mapped_to_-1_in_test_preprocessing"
+  },
+  "city": {
+    "count": 0,
+    "examples": [],
+    "handling": "unseen_or_missing_mapped_to_-1_in_test_preprocessing"
+  },
+  "Status": {
+    "count": 0,
+    "examples": [],
+    "handling": "unseen_or_missing_mapped_to_-1_in_test_preprocessing"
+  },
+  "property_type": {
+    "count": 0,
+    "examples": [],
+    "handling": "unseen_or_missing_mapped_to_-1_in_test_preprocessing"
+  }
+}

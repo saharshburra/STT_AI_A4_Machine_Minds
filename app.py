@@ -41,13 +41,12 @@ def load_location_city_map():
 
 location_city_map = load_location_city_map()
 
-# Safe encoding function
-def safe_encode(encoder, value):
-    try:
-        return encoder.transform([value])[0]
-    except:
-        # fallback to first known class
-        return encoder.transform([encoder.classes_[0]])[0]
+# Match notebook preprocessing: unseen categories are encoded as -1.
+def encode_with_unknown_as_minus_one(encoder, value):
+    value_str = str(value)
+    if value_str in encoder.classes_:
+        return int(encoder.transform([value_str])[0])
+    return -1
 
 
 def get_default_city_for_location(location_value):
@@ -122,10 +121,10 @@ if st.button("Predict Rent"):
         st.stop()
 
     # Encode categorical features
-    location_enc = safe_encode(location_encoder, location)
-    city_enc = safe_encode(city_encoder, city)
-    status_enc = safe_encode(status_encoder, status)
-    type_enc = safe_encode(type_encoder, property_type)
+    location_enc = encode_with_unknown_as_minus_one(location_encoder, location)
+    city_enc = encode_with_unknown_as_minus_one(city_encoder, city)
+    status_enc = encode_with_unknown_as_minus_one(status_encoder, status)
+    type_enc = encode_with_unknown_as_minus_one(type_encoder, property_type)
 
     # Feature vector with proper column names to avoid sklearn warning
     features = pd.DataFrame([[location_enc, city_enc, latitude, longitude,
