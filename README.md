@@ -28,21 +28,21 @@ Built a complete rent prediction pipeline for Mumbai, Pune, Delhi, and Hisar tha
 - Saved encoder artifacts and mappings for frontend reuse in `models/label_encoders.pkl` and `models/label_mappings.json`.
 - Compared 3 tuning strategies on `RandomForestRegressor` with 5-fold CV:
   - Grid Search (`GridSearchCV`) with 60 exact combinations.
-  - Random Search (`RandomizedSearchCV`) for 60 trials.
-  - Bayesian Optimization (Optuna) for 60 trials.
+  - Random Search (`RandomizedSearchCV`) for 100 trials.
+  - Bayesian Optimization (Optuna) for 100 trials.
 - Logged experiment runs and comparisons using Trackio.
 - Retrained best model on full train set and reported final MAE on untouched test set.
 
 **Results**
 
-| Method | Best CV MAE | Time (sec) | Best Parameters |
-|---|---:|---:|---|
-| Grid Search | 13268.93 | 411.92 | `max_depth=25, min_samples_split=2, n_estimators=200` |
-| Random Search | 13298.72 | 362.11 | `max_depth=24, min_samples_split=2, n_estimators=142` |
-| Bayesian (Optuna) | 13285.52 | 388.87 | `max_depth=22, min_samples_split=2, n_estimators=199` |
+| Method            | Best CV MAE | Time (sec) | Best Parameters                                       |
+| ----------------- | ----------: | ---------: | ----------------------------------------------------- |
+| Grid Search       |    13268.93 |     278.64 | `max_depth=25, min_samples_split=2, n_estimators=200` |
+| Random Search     |    13280.89 |     473.24 | `max_depth=26, min_samples_split=2, n_estimators=176` |
+| Bayesian (Optuna) |    13267.74 |     772.36 | `max_depth=26, min_samples_split=2, n_estimators=184` |
 
-- Best method: Grid Search
-- Final test MAE: 12417.01
+- Best method: Bayesian (Optuna)
+- Final test MAE: 12410.41
 
 **Generated outputs**
 
@@ -137,7 +137,6 @@ Open in browser: http://localhost:8501
 **Deployment URL**
 
 - https://huggingface.co/spaces/manoz-037/UrbanNest-Rent-Prediction
-
 
 ## Git LFS Notice
 
