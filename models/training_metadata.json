@@ -36,18 +36,18 @@
         "n_estimators": 200
       },
       "best_cv_mae": 13268.933395166712,
-      "time_sec": 278.63516879081726,
+      "time_sec": 732.9437696933746,
       "iterations": 60
     },
     "random": {
       "best_params": {
-        "n_estimators": 176,
+        "n_estimators": 142,
         "min_samples_split": 2,
-        "max_depth": 26
+        "max_depth": 24
       },
-      "best_cv_mae": 13280.886069384953,
-      "time_sec": 473.2397651672363,
-      "iterations": 100
+      "best_cv_mae": 13298.719930138317,
+      "time_sec": 798.0885882377625,
+      "iterations": 60
     },
     "bayesian": {
       "best_params": {
@@ -56,8 +56,8 @@
         "min_samples_split": 2
       },
       "best_cv_mae": 13267.741236937383,
-      "time_sec": 772.3555989265442,
-      "iterations": 100
+      "time_sec": 499.1092813014984,
+      "iterations": 60
     }
   }
 }
