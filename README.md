@@ -37,12 +37,21 @@ Built a complete rent prediction pipeline for Mumbai, Pune, Delhi, and Hisar tha
 
 | Method            | Best CV MAE | Time (sec) | Best Parameters                                       |
 | ----------------- | ----------: | ---------: | ----------------------------------------------------- |
-| Grid Search       |    13268.93 |     732.94 | `max_depth=25, min_samples_split=2, n_estimators=200` |
-| Random Search     |    13298.72 |     798.09 | `max_depth=24, min_samples_split=2, n_estimators=142` |
-| Bayesian (Optuna) |    13267.74 |     499.11 | `max_depth=26, min_samples_split=2, n_estimators=184` |
+| Grid Search       |    13268.93 |     295.84 | `max_depth=25, min_samples_split=2, n_estimators=200` |
+| Random Search     |    13298.72 |     271.95 | `max_depth=24, min_samples_split=2, n_estimators=142` |
+| Bayesian (Optuna) |    13267.74 |     475.23 | `max_depth=26, min_samples_split=2, n_estimators=184` |
 
-- Best method: Bayesian (Optuna)
+- Best accuracy method: Bayesian (Optuna)
+- Best compute-efficiency method (time): Random Search
 - Final test MAE: 12410.41
+
+**How "best compute-efficiency" was decided**
+
+- All three methods were run under the same fair budget: 5-fold CV and 60 evaluations/trials each.
+- We define compute-efficiency as the method with the lowest wall-clock tuning time under this same budget.
+- From this run: Random Search = 271.95s, Grid Search = 295.84s, Bayesian (Optuna) = 475.23s.
+- Therefore, Random Search is the most compute-efficient for this experiment setup.
+- Note: this is separate from best accuracy, where Bayesian achieved the lowest CV MAE.
 
 **Generated outputs**
 
@@ -137,6 +146,13 @@ Open in browser: http://localhost:8501
 **Deployment URL**
 
 - https://huggingface.co/spaces/manoz-037/UrbanNest-Rent-Prediction
+
+## Limitations
+
+- Unseen categorical values in notebook test preprocessing are mapped to `-1` (especially for unseen `location` values). This is a safe fallback, but performance on completely new localities may be lower than on known localities.
+- The Streamlit UI reduces this issue by restricting user selections to known encoded classes and auto-linking city with location.
+- A small number of coordinate anomalies may exist in the source dataset. City-aware latitude/longitude bounds are applied in the UI, but model quality still depends on input data quality.
+- Compute-efficiency conclusions are based on this assignment's fixed budget setup (5-fold CV and 60 evaluations per method).
 
 ## Git LFS Notice
 
