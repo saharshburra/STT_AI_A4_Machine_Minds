@@ -142,7 +142,7 @@ with col2:
     city = st.text_input("City (Auto from Location)", value=st.session_state["selected_city"], disabled=True)
     property_type = st.selectbox("Property Type", type_encoder.classes_)
     balconies = st.number_input("Number of Balconies", min_value=0, value=1, step=1)
-    bhk = st.number_input("BHK", min_value=1, value=2, step=1)
+    bhk = st.selectbox("BHK (dataset uses binary encoding)", [0, 1], format_func=lambda x: "0" if x == 0 else "1")
     rooms = st.number_input("Total Rooms", min_value=1, value=3, step=1)
 
 with col3:
@@ -151,7 +151,6 @@ with col3:
         "Latitude",
         min_value=float(city_lat_min),
         max_value=float(city_lat_max),
-        value=float(st.session_state["lat_val"]),
         format="%.6f",
         key="lat_val",
     )
@@ -159,7 +158,6 @@ with col3:
         "Longitude",
         min_value=float(city_lon_min),
         max_value=float(city_lon_max),
-        value=float(st.session_state["lon_val"]),
         format="%.6f",
         key="lon_val",
     )

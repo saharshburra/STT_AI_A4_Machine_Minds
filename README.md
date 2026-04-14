@@ -25,7 +25,9 @@ Built a complete rent prediction pipeline for Mumbai, Pune, Delhi, and Hisar tha
 **What we did**
 
 - Used all required features and encoded categorical columns with label encoders.
+- Removed duplicate rows in train/test and filtered train rows that overlapped with test feature vectors before tuning, so the reported MAE is stricter and less optimistic.
 - Saved encoder artifacts and mappings for frontend reuse in `models/label_encoders.pkl` and `models/label_mappings.json`.
+- Saved a data-quality audit in `models/data_quality_report.json` to document the cleaning step.
 - Compared 3 tuning strategies on `RandomForestRegressor` with 5-fold CV:
   - Grid Search (`GridSearchCV`) with 60 exact combinations.
   - Random Search (`RandomizedSearchCV`) for 60 trials.
@@ -37,26 +39,32 @@ Built a complete rent prediction pipeline for Mumbai, Pune, Delhi, and Hisar tha
 
 | Method            | Best CV MAE | Time (sec) | Best Parameters                                       |
 | ----------------- | ----------: | ---------: | ----------------------------------------------------- |
-| Grid Search       |    13268.93 |     282.41 | `max_depth=25, min_samples_split=2, n_estimators=200` |
-| Random Search     |    13298.72 |     268.15 | `max_depth=24, min_samples_split=2, n_estimators=142` |
-| Bayesian (Optuna) |    13267.74 |     413.01 | `max_depth=26, min_samples_split=2, n_estimators=184` |
+| Grid Search       |    15496.30 |     253.21 | `max_depth=30, min_samples_split=2, n_estimators=150` |
+| Random Search     |    15474.49 |     230.41 | `max_depth=30, min_samples_split=3, n_estimators=183` |
+| Bayesian (Optuna) |    15470.25 |     365.37 | `max_depth=28, min_samples_split=2, n_estimators=177` |
 
 - Best accuracy method: Bayesian (Optuna)
 - Best compute-efficiency method (time): Random Search
-- Final test MAE: 12410.41
+- Final test MAE: 15057.30
 
 **How "best compute-efficiency" was decided**
 
 - All three methods were run under the same fair budget: 5-fold CV and 60 evaluations/trials each.
 - We define compute-efficiency as the method with the lowest wall-clock tuning time under this same budget.
-- From this run: Random Search = 268.15s, Grid Search = 282.41s, Bayesian (Optuna) = 413.01s.
+- From this run: Random Search = 230.41s, Grid Search = 253.21s, Bayesian (Optuna) = 365.37s.
 - Therefore, Random Search is the most compute-efficient for this experiment setup.
 - Note: this is separate from best accuracy, where Bayesian achieved the lowest CV MAE.
+
+**Why the MAE increased after cleaning**
+
+- The cleaned run removes duplicate examples and train rows that exactly matched test feature vectors.
+- That makes the evaluation more realistic, because the model can no longer benefit from memorizing repeated or near-identical rows.
+- The higher MAE is therefore expected and preferable for viva defense.
 
 **Generated outputs**
 
 - Notebook: [train.ipynb](train.ipynb)
-- Model and encoders: [models/best_rf_model.pkl](models/best_rf_model.pkl), [models/label_encoders.pkl](models/label_encoders.pkl), [models/training_metadata.json](models/training_metadata.json)
+- Model and encoders: [models/best_rf_model.pkl](models/best_rf_model.pkl), [models/label_encoders.pkl](models/label_encoders.pkl), [models/training_metadata.json](models/training_metadata.json), [models/data_quality_report.json](models/data_quality_report.json)
 - Plots: [plots/trials_vs_error.png](plots/trials_vs_error.png), [plots/optuna_hyperparameter_space.png](plots/optuna_hyperparameter_space.png)
 - Optuna plot note: `optuna_hyperparameter_space.png` is generated using `optuna.visualization.plot_contour` (fallback: `plot_optimization_history` if contour export fails).
 - Trackio evidence: [screenshots/trackio_dashboard.png](screenshots/trackio_dashboard.png), [screenshots/trackio_dashboard_media&tables.png](screenshots/trackio_dashboard_media&tables.png)
@@ -91,6 +99,7 @@ jupyter nbconvert --to notebook --execute train.ipynb --output train.executed.ip
 - Loaded saved model and encoders with `pickle.load`.
 - Encoded user inputs and predicted rent on `Predict Rent` button click.
 - Displayed output in-app using `st.success`.
+- Aligned the BHK input with the binary encoding used by the trained dataset and model.
 
 **Generated outputs**
 

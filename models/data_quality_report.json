@@ -1,0 +1,20 @@
+{
+  "initial_rows": {
+    "train": 11128,
+    "test": 2782
+  },
+  "duplicate_rows_removed": {
+    "train": 1439,
+    "test": 152
+  },
+  "feature_overlap_rows_removed_from_train": 600,
+  "final_rows": {
+    "train": 9089,
+    "test": 2630
+  },
+  "bhk_unique_values_train": [
+    0,
+    1
+  ],
+  "bhk_binary_flag": true
+}

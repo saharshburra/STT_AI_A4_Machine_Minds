@@ -1,11 +1,11 @@
 {
   "best_method": "bayesian",
   "best_params": {
-    "n_estimators": 184,
-    "max_depth": 26,
+    "n_estimators": 177,
+    "max_depth": 28,
     "min_samples_split": 2
   },
-  "test_mae": 12410.40633993207,
+  "test_mae": 15057.300854534164,
   "feature_cols": [
     "location",
     "city",
@@ -28,35 +28,56 @@
     "Status",
     "property_type"
   ],
+  "data_quality": {
+    "initial_rows": {
+      "train": 11128,
+      "test": 2782
+    },
+    "duplicate_rows_removed": {
+      "train": 1439,
+      "test": 152
+    },
+    "feature_overlap_rows_removed_from_train": 600,
+    "final_rows": {
+      "train": 9089,
+      "test": 2630
+    },
+    "bhk_unique_values_train": [
+      0,
+      1
+    ],
+    "bhk_binary_flag": true
+  },
+  "evaluation_note": "Train duplicates, test duplicates, and train rows with feature overlap against test were removed before tuning and final evaluation.",
   "results": {
     "grid": {
       "best_params": {
-        "max_depth": 25,
+        "max_depth": 30,
         "min_samples_split": 2,
-        "n_estimators": 200
+        "n_estimators": 150
       },
-      "best_cv_mae": 13268.933395166712,
-      "time_sec": 282.4056234359741,
+      "best_cv_mae": 15496.296940769094,
+      "time_sec": 253.20784068107605,
       "iterations": 60
     },
     "random": {
       "best_params": {
-        "n_estimators": 142,
-        "min_samples_split": 2,
-        "max_depth": 24
+        "n_estimators": 183,
+        "min_samples_split": 3,
+        "max_depth": 30
       },
-      "best_cv_mae": 13298.719930138317,
-      "time_sec": 268.1548879146576,
+      "best_cv_mae": 15474.491311468704,
+      "time_sec": 230.40701818466187,
       "iterations": 60
     },
     "bayesian": {
       "best_params": {
-        "n_estimators": 184,
-        "max_depth": 26,
+        "n_estimators": 177,
+        "max_depth": 28,
         "min_samples_split": 2
       },
-      "best_cv_mae": 13267.741236937383,
-      "time_sec": 413.00793051719666,
+      "best_cv_mae": 15470.252896078022,
+      "time_sec": 365.3672938346863,
       "iterations": 60
     }
   }
