@@ -36,7 +36,7 @@
         "n_estimators": 200
       },
       "best_cv_mae": 13268.933395166712,
-      "time_sec": 295.8382680416107,
+      "time_sec": 282.4056234359741,
       "iterations": 60
     },
     "random": {
@@ -46,7 +46,7 @@
         "max_depth": 24
       },
       "best_cv_mae": 13298.719930138317,
-      "time_sec": 271.9466109275818,
+      "time_sec": 268.1548879146576,
       "iterations": 60
     },
     "bayesian": {
@@ -56,7 +56,7 @@
         "min_samples_split": 2
       },
       "best_cv_mae": 13267.741236937383,
-      "time_sec": 475.22836446762085,
+      "time_sec": 413.00793051719666,
       "iterations": 60
     }
   }

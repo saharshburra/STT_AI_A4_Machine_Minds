@@ -37,9 +37,9 @@ Built a complete rent prediction pipeline for Mumbai, Pune, Delhi, and Hisar tha
 
 | Method            | Best CV MAE | Time (sec) | Best Parameters                                       |
 | ----------------- | ----------: | ---------: | ----------------------------------------------------- |
-| Grid Search       |    13268.93 |     295.84 | `max_depth=25, min_samples_split=2, n_estimators=200` |
-| Random Search     |    13298.72 |     271.95 | `max_depth=24, min_samples_split=2, n_estimators=142` |
-| Bayesian (Optuna) |    13267.74 |     475.23 | `max_depth=26, min_samples_split=2, n_estimators=184` |
+| Grid Search       |    13268.93 |     282.41 | `max_depth=25, min_samples_split=2, n_estimators=200` |
+| Random Search     |    13298.72 |     268.15 | `max_depth=24, min_samples_split=2, n_estimators=142` |
+| Bayesian (Optuna) |    13267.74 |     413.01 | `max_depth=26, min_samples_split=2, n_estimators=184` |
 
 - Best accuracy method: Bayesian (Optuna)
 - Best compute-efficiency method (time): Random Search
@@ -49,7 +49,7 @@ Built a complete rent prediction pipeline for Mumbai, Pune, Delhi, and Hisar tha
 
 - All three methods were run under the same fair budget: 5-fold CV and 60 evaluations/trials each.
 - We define compute-efficiency as the method with the lowest wall-clock tuning time under this same budget.
-- From this run: Random Search = 271.95s, Grid Search = 295.84s, Bayesian (Optuna) = 475.23s.
+- From this run: Random Search = 268.15s, Grid Search = 282.41s, Bayesian (Optuna) = 413.01s.
 - Therefore, Random Search is the most compute-efficient for this experiment setup.
 - Note: this is separate from best accuracy, where Bayesian achieved the lowest CV MAE.
 
@@ -58,6 +58,7 @@ Built a complete rent prediction pipeline for Mumbai, Pune, Delhi, and Hisar tha
 - Notebook: [train.ipynb](train.ipynb)
 - Model and encoders: [models/best_rf_model.pkl](models/best_rf_model.pkl), [models/label_encoders.pkl](models/label_encoders.pkl), [models/training_metadata.json](models/training_metadata.json)
 - Plots: [plots/trials_vs_error.png](plots/trials_vs_error.png), [plots/optuna_hyperparameter_space.png](plots/optuna_hyperparameter_space.png)
+- Optuna plot note: `optuna_hyperparameter_space.png` is generated using `optuna.visualization.plot_contour` (fallback: `plot_optimization_history` if contour export fails).
 - Trackio evidence: [screenshots/trackio_dashboard.png](screenshots/trackio_dashboard.png), [screenshots/trackio_dashboard_media&tables.png](screenshots/trackio_dashboard_media&tables.png)
 
 **Reproducibility commands (Task 1)**
