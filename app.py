@@ -139,7 +139,7 @@ with col1:
 
 with col2:
     # Keep city consistent with selected location to avoid unrealistic combinations.
-    city = st.selectbox("City (Auto from Location)", [st.session_state["selected_city"]], disabled=True)
+    city = st.text_input("City (Auto from Location)", value=st.session_state["selected_city"], disabled=True)
     property_type = st.selectbox("Property Type", type_encoder.classes_)
     balconies = st.number_input("Number of Balconies", min_value=0, value=1, step=1)
     bhk = st.number_input("BHK", min_value=1, value=2, step=1)
